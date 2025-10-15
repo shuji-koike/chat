@@ -25,27 +25,24 @@ export async function* genData(count: number) {
   }
 }
 
-// クライアントから呼び出されるServer Action
 export async function streamData(count: number = 10) {
-  const generator = genData(count);
-  return streamChunk(generator);
+  return stream(genData(count));
 }
 
-type StreamResponseChunk<T, U> = {
-  iteratorResult: IteratorResult<T, U>;
-  next?: Promise<StreamResponseChunk<T, U>>;
+export type IteratorResponse<T, U> = {
+  result: IteratorResult<T, U>;
+  next?: Promise<IteratorResponse<T, U>>;
 };
 
-async function streamChunk<T, U>(
+async function stream<T, U>(
   generator: AsyncGenerator<T, U>
-): Promise<StreamResponseChunk<T, U>> {
+): Promise<IteratorResponse<T, U>> {
   const next = generator.next();
   return next.then((res) => {
     if (res.done) {
-      return { iteratorResult: res };
+      return { result: res };
     } else {
-      // 再帰的に次のチャンクをPromiseとして定義
-      return { iteratorResult: res, next: streamChunk(generator) };
+      return { result: res, next: stream(generator) };
     }
   });
 }
