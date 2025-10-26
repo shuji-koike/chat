@@ -34,7 +34,7 @@ export type IteratorResponse<T, U> = {
   next?: Promise<IteratorResponse<T, U>>
 }
 
-async function stream<T, U>(
+export async function stream<T, U>(
   generator: AsyncGenerator<T, U>,
 ): Promise<IteratorResponse<T, U>> {
   const next = generator.next()
