@@ -18,7 +18,7 @@ export function MyClientComponent() {
           }
         }}
       >
-        stream data test
+        stream data
       </button>
       <p>{data.map((d) => d.title).join("")}</p>
     </div>
