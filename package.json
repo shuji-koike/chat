@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^2.0.53",
     "ai": "^5.0.80",
     "firebase": "^12.4.0",
     "firebase-admin": "^13.5.0",
