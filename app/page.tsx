@@ -1,9 +1,9 @@
-import { fetchData, fetchFirstData } from "../actions/fetchData";
-import { MyClientComponent } from "../components";
+import { fetchData, fetchFirstData } from "../actions/fetchData"
+import { MyClientComponent } from "../components"
 
 async function MyServerComponent() {
-  const data = await fetchData();
-  return <div>{data.title}</div>;
+  const data = await fetchData()
+  return <div>{data.title}</div>
 }
 
 export default function Home() {
@@ -17,5 +17,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  );
+  )
 }

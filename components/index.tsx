@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { IteratorResponse, streamData, Todo } from "../actions/fetchData";
+import { useState } from "react"
+import { IteratorResponse, streamData, Todo } from "../actions/fetchData"
 
 export function MyClientComponent() {
-  const [data, setData] = useState<Todo[]>([]);
+  const [data, setData] = useState<Todo[]>([])
   return (
     <div className="flex flex-col gap-4 ">
       <button
@@ -12,8 +12,8 @@ export function MyClientComponent() {
         onClick={async () => {
           for await (const value of genStream(await streamData(12))) {
             if (value) {
-              console.log(value);
-              setData((prev) => prev.concat(value));
+              console.log(value)
+              setData((prev) => prev.concat(value))
             }
           }
         }}
@@ -22,13 +22,13 @@ export function MyClientComponent() {
       </button>
       <p>{data.map((d) => d.title).join("")}</p>
     </div>
-  );
+  )
 }
 
 async function* genStream<T, U>(res: IteratorResponse<T, U>) {
   while (true) {
-    yield res.result.value;
-    if (!res.next) break;
-    res = await res.next;
+    yield res.result.value
+    if (!res.next) break
+    res = await res.next
   }
 }
